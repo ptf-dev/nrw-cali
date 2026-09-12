@@ -1,0 +1,71 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//nrw-cali//NRW Holiday Calendars//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Bridge Days North Rhine-Westphalia 2024
+X-WR-CALNAME:Bridge Days North Rhine-Westphalia 2024
+DESCRIPTION:Single working days between a North Rhine-Westphalia holiday an
+ d the weekend.
+X-WR-CALDESC:Single working days between a North Rhine-Westphalia holiday a
+ nd the weekend.
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:P7D
+X-PUBLISHED-TTL:P7D
+BEGIN:VEVENT
+UID:2024-05-10-bridge-ascension-day@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20240510
+DTEND;VALUE=DATE:20240511
+SUMMARY:Bridge day (after Ascension Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2024-05-31-bridge-corpus-christi@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20240531
+DTEND;VALUE=DATE:20240601
+SUMMARY:Bridge day (after Corpus Christi)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2024-10-04-bridge-german-unity-day@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20241004
+DTEND;VALUE=DATE:20241005
+SUMMARY:Bridge day (after German Unity Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2024-12-27-bridge-boxing-day@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20241227
+DTEND;VALUE=DATE:20241228
+SUMMARY:Bridge day (after Boxing Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+END:VCALENDAR

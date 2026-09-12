@@ -1,0 +1,30 @@
+# Deliberately does not deploy. GitHub Pages builds the branch itself, and a
+# second deploying workflow would race it: whichever finished last would decide
+# where the .ics files live, breaking everyone's subscription URLs.
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      # The .ics files are committed so the site works with no build step.
+      # Fail if they no longer match what the generator produces.
+      - run: npm run build
+      - name: Check the committed feeds are up to date
+        run: |
+          if ! git diff --quiet -- '*.ics'; then
+            echo "::error::Committed .ics files are stale. Run 'npm run build' and commit the result."
+            git diff --stat -- '*.ics'
+            exit 1
+          fi

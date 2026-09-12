@@ -1,0 +1,71 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//nrw-cali//NRW Holiday Calendars//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Brückentage Nordrhein-Westfalen 2041
+X-WR-CALNAME:Brückentage Nordrhein-Westfalen 2041
+DESCRIPTION:Einzelne Arbeitstage zwischen einem NRW-Feiertag und dem Wochen
+ ende.
+X-WR-CALDESC:Einzelne Arbeitstage zwischen einem NRW-Feiertag und dem Woche
+ nende.
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:P7D
+X-PUBLISHED-TTL:P7D
+BEGIN:VEVENT
+UID:2041-05-31-bridge-ascension-day@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20410531
+DTEND;VALUE=DATE:20410601
+SUMMARY:Brückentag (nach Christi Himmelfahrt)
+DESCRIPTION:Brückentag: ein Urlaubstag verbindet hier einen Feiertag in No
+ rdrhein-Westfalen mit dem Wochenende.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2041-06-21-bridge-corpus-christi@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20410621
+DTEND;VALUE=DATE:20410622
+SUMMARY:Brückentag (nach Fronleichnam)
+DESCRIPTION:Brückentag: ein Urlaubstag verbindet hier einen Feiertag in No
+ rdrhein-Westfalen mit dem Wochenende.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2041-10-04-bridge-german-unity-day@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20411004
+DTEND;VALUE=DATE:20411005
+SUMMARY:Brückentag (nach Tag der Deutschen Einheit)
+DESCRIPTION:Brückentag: ein Urlaubstag verbindet hier einen Feiertag in No
+ rdrhein-Westfalen mit dem Wochenende.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2041-12-27-bridge-boxing-day@nrw-cali
+DTSTAMP:20260912T061651Z
+DTSTART;VALUE=DATE:20411227
+DTEND;VALUE=DATE:20411228
+SUMMARY:Brückentag (nach 2. Weihnachtstag)
+DESCRIPTION:Brückentag: ein Urlaubstag verbindet hier einen Feiertag in No
+ rdrhein-Westfalen mit dem Wochenende.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+END:VCALENDAR

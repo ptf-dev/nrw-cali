@@ -15,7 +15,7 @@ import {
   feedName,
   holidaysForYear,
   isoWeek,
-} from '../docs/holidays.js';
+} from '../holidays.js';
 
 /** date, weekday, calendar week and name exactly as published by the source. */
 const EXPECTED = `

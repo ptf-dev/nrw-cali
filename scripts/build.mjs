@@ -14,9 +14,11 @@ import {
   feedEvents,
   feedFile,
   feedName,
-} from '../docs/holidays.js';
+} from '../holidays.js';
 
-const outDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'docs');
+// The site is published from the repository root so that GitHub Pages serves
+// it identically whether it builds the branch itself or runs the CI workflow.
+const outDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dtstamp = new Date();
 
 async function write(feed, year) {

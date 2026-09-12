@@ -48,30 +48,34 @@ the all-years feed if you want it to keep working without you.
 
 ## Publishing
 
-The whole site is the `docs/` folder, generated `.ics` files included, so any static
-host works. With GitHub Pages, either:
+The site is the repository root, generated `.ics` files included, so any static host
+works. On GitHub Pages: **Settings › Pages › Source: Deploy from a branch**, pick the
+branch, leave the folder on **`/ (root)`**. Nothing else to configure.
 
-- **From the branch** &mdash; Settings › Pages › Source: *Deploy from a branch*, and pick
-  your branch with the `/docs` folder. Nothing else to set up.
-- **From Actions** &mdash; Settings › Pages › Source: *GitHub Actions*. The workflow in
-  `.github/workflows/pages.yml` runs the tests, rebuilds the feeds and deploys.
+The site deliberately lives at the root rather than in `docs/`. GitHub Pages builds the
+branch itself, and a workflow that also deployed would race that build &mdash; whichever
+finished last would decide whether the feeds sat at `/nrw-holidays-en.ics` or
+`/docs/nrw-holidays-en.ics`. Since a subscription URL has to stay put, there is one
+publisher, and `.github/workflows/ci.yml` only runs the tests.
+
+`.nojekyll` turns off Jekyll so every file, `.ics` included, is served verbatim.
 
 The site needs a real web address: `webcal://` subscription links cannot point at a
-local file. Opening `docs/index.html` straight from disk shows a notice saying so.
+local file. Opening `index.html` straight from disk shows a notice saying so.
 
 ## Local development
 
 ```sh
-npm test     # verify the dates and the iCalendar output
-npm run build # regenerate docs/*.ics
-npm start     # build, then serve docs/ on http://localhost:8080
+npm test      # verify the dates and the iCalendar output
+npm run build # regenerate the .ics files
+npm start     # build, then serve the site on http://localhost:8080
 ```
 
 Node 18+ (no dependencies).
 
 ## How the dates are produced
 
-`docs/holidays.js` is the single source of truth, shared unchanged by the page and
+`holidays.js` is the single source of truth, shared unchanged by the page and
 the build script. Rather than keeping a hand-copied table of dates, it derives them:
 
 - Six fixed holidays &mdash; New Year, Labour Day, German Unity Day, All Saints' Day and
@@ -96,13 +100,12 @@ Year's Day falls on a Thursday).
 ## Layout
 
 ```
-docs/            the published site
-  holidays.js    holiday rules + iCalendar writer (browser and Node)
-  index.html     the page
-  app.js         subscription links and the preview table
-  styles.css
-  *.ics          generated all-years feeds
-  years/*.ics    generated single-year feeds
-scripts/build.mjs  writes docs/*.ics and docs/years/*.ics
+index.html       the page
+app.js           subscription links and the preview table
+styles.css
+holidays.js      holiday rules + iCalendar writer (browser and Node)
+*.ics            generated all-years feeds
+years/*.ics      generated single-year feeds
+scripts/build.mjs  writes the .ics files
 scripts/test.mjs   checks dates against the source, validates the output
 ```
