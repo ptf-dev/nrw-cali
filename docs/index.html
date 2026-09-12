@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NRW Holiday Calendars</title>
+<meta name="description" content="Subscribe to the public holidays of North Rhine-Westphalia from your iPhone, Mac, or any calendar app.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+</head>
+<body>
+<main>
+  <header class="page-head">
+    <p class="eyebrow">Nordrhein-Westfalen &middot; Germany</p>
+    <h1>NRW Holiday Calendars</h1>
+    <p class="lede">
+      Subscribe once and every public holiday in North Rhine-Westphalia shows up in your
+      calendar &mdash; on iPhone, iPad, Mac, or anything else that speaks iCalendar.
+      Covers <span data-year-range>2020&ndash;2060</span>.
+    </p>
+  </header>
+
+  <div class="notice" id="local-notice" hidden>
+    <strong>This page is open from a local file.</strong>
+    Subscription links need a real web address. Publish the <code>docs/</code> folder
+    (GitHub&nbsp;Pages works, see the README) and open the page from there &mdash; or use the
+    download buttons for a one-off import.
+  </div>
+
+  <section class="lang-switch" aria-labelledby="lang-heading">
+    <h2 id="lang-heading">Holiday names in</h2>
+    <div class="segmented" role="radiogroup" aria-labelledby="lang-heading">
+      <button type="button" role="radio" data-lang="en" aria-checked="true">English</button>
+      <button type="button" role="radio" data-lang="de" aria-checked="false">Deutsch</button>
+    </div>
+  </section>
+
+  <section class="feeds" id="feeds" aria-label="Available calendars"></section>
+
+  <section class="howto">
+    <h2>How to subscribe on iPhone</h2>
+    <ol>
+      <li>Open this page in Safari on your iPhone and tap <strong>Subscribe</strong>. Confirm the dialog.</li>
+      <li>
+        Prefer doing it by hand? Tap <strong>Copy link</strong>, then go to
+        <strong>Settings &rsaquo; Apps &rsaquo; Calendar &rsaquo; Calendar Accounts &rsaquo; Add Account &rsaquo; Other &rsaquo;
+        Add Subscribed Calendar</strong> and paste it.
+      </li>
+      <li>Give it an alert if you like, and turn <strong>Remove Alarms</strong> on to keep it quiet.</li>
+    </ol>
+    <p class="fineprint">
+      On macOS: Calendar &rsaquo; File &rsaquo; New Calendar Subscription. In Google Calendar:
+      Other calendars &rsaquo; From URL. Subscribed calendars stay up to date on their own &mdash;
+      the feed asks to be refreshed weekly.
+    </p>
+  </section>
+
+  <section class="preview">
+    <div class="preview-head">
+      <h2>What you get</h2>
+      <label class="year-picker">
+        <span>Year</span>
+        <select id="year"></select>
+      </label>
+    </div>
+    <table id="preview-table">
+      <thead>
+        <tr><th scope="col">Date</th><th scope="col">Day</th><th scope="col">Week</th><th scope="col">Holiday</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>
+      Dates are computed from the fixed holidays plus the Easter cycle, and checked against
+      <a href="https://www.holidays-info.com/germany/holidays/north-rhine-westphalia/" rel="noreferrer noopener">holidays-info.com</a>.
+      No tracking, no server, no dependencies.
+    </p>
+  </footer>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "nrw-cali",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Subscribable calendar feeds for the public holidays of North Rhine-Westphalia, Germany.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs",
+    "start": "npm run build && node --run serve",
+    "serve": "node --eval \"import('node:http').then(({default:http})=>import('node:fs').then(({default:fs})=>http.createServer((q,s)=>{const p='docs'+(q.url==='/'?'/index.html':q.url.split('?')[0]);fs.readFile(p,(e,d)=>{if(e){s.writeHead(404);return s.end('not found')}const t=p.endsWith('.ics')?'text/calendar':p.endsWith('.js')?'text/javascript':p.endsWith('.css')?'text/css':'text/html';s.writeHead(200,{'content-type':t+'; charset=utf-8'});s.end(d)})}).listen(8080,()=>console.log('http://localhost:8080'))))\""
+  }
+}
