@@ -1,4 +1,4 @@
-# NRW Holiday Calendars
+# NRW Holiday Calendars - Subscribe
 
 Subscribable calendar feeds for the public holidays of **North Rhine-Westphalia**
 (Nordrhein-Westfalen), Germany. Subscribe once on your iPhone and every holiday
