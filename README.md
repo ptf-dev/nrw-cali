@@ -8,15 +8,22 @@ A static page plus four `.ics` files. No server, no build dependencies, no track
 
 ## The calendars
 
-| Feed | Contents |
-| --- | --- |
-| `nrw-holidays-en.ics` | The 11 statutory holidays, English names |
-| `nrw-holidays-de.ics` | The 11 statutory holidays, German names |
-| `nrw-bridge-days-en.ics` | Bridge days (optional), English |
-| `nrw-bridge-days-de.ics` | Bridge days (optional), German |
+Each calendar is published twice: once with every year in a single file, and once
+per year for people who would rather keep one year and delete it when it is over.
 
-Each covers **2020&ndash;2060**. Holidays are all-day events marked `TRANSP:TRANSPARENT`,
-so a subscribed calendar never makes you look busy.
+| Calendar | Every year | One year |
+| --- | --- | --- |
+| Holidays, English | `nrw-holidays-en.ics` | `years/nrw-holidays-2026-en.ics` |
+| Holidays, German | `nrw-holidays-de.ics` | `years/nrw-holidays-2026-de.ics` |
+| Bridge days, English | `nrw-bridge-days-en.ics` | `years/nrw-bridge-days-2026-en.ics` |
+| Bridge days, German | `nrw-bridge-days-de.ics` | `years/nrw-bridge-days-2026-de.ics` |
+
+The all-years files cover **2020&ndash;2060**; a yearly file exists for every year in that
+range. Holidays are all-day events marked `TRANSP:TRANSPARENT`, so a subscribed
+calendar never makes you look busy.
+
+Event `UID`s are the same in both forms, so subscribing to a year and later to the
+whole range updates the shared dates instead of duplicating them.
 
 *Bridge days* (Brückentage) are the single working day between a holiday and the
 weekend: a Tuesday holiday makes the Monday before it a bridge day, a Thursday
@@ -25,7 +32,8 @@ holiday the Friday after it. One day of leave, four days off.
 ## Subscribe on iPhone
 
 Once the page is published (see below), open it in Safari on your iPhone and tap
-**Subscribe**. To do it by hand instead, copy the feed address and go to
+**Subscribe** &mdash; under *Every year in one calendar* for the full range, or pick a year
+under *One year at a time*. To do it by hand instead, copy the feed address and go to
 **Settings › Apps › Calendar › Calendar Accounts › Add Account › Other ›
 Add Subscribed Calendar**.
 
@@ -34,6 +42,9 @@ On macOS: **Calendar › File › New Calendar Subscription**. In Google Calenda
 
 The feed asks to be refreshed weekly (`REFRESH-INTERVAL:P7D`), and event `UID`s are
 stable, so re-subscribing updates events instead of duplicating them.
+
+A yearly calendar does not roll over on its own &mdash; that is the point of it. Subscribe to
+the all-years feed if you want it to keep working without you.
 
 ## Publishing
 
@@ -72,7 +83,9 @@ the build script. Rather than keeping a hand-copied table of dates, it derives t
 `npm test` checks all 44 dates, weekdays and calendar weeks for 2025&ndash;2028 against the
 list published on
 [holidays-info.com](https://www.holidays-info.com/germany/holidays/north-rhine-westphalia/),
-then checks that the generated feeds parse as well-formed iCalendar.
+then checks that the generated feeds parse as well-formed iCalendar and that the
+yearly files partition the all-years files exactly &mdash; every date in one file and only
+one, with matching `UID`s.
 
 One deliberate difference from that source: its own `BD` (bridge day) markers are
 incomplete &mdash; 2027 and 2028 carry them, while the identical Thursday holidays of 2026
@@ -88,7 +101,8 @@ docs/            the published site
   index.html     the page
   app.js         subscription links and the preview table
   styles.css
-  *.ics          generated feeds
-scripts/build.mjs  writes docs/*.ics
+  *.ics          generated all-years feeds
+  years/*.ics    generated single-year feeds
+scripts/build.mjs  writes docs/*.ics and docs/years/*.ics
 scripts/test.mjs   checks dates against the source, validates the output
 ```

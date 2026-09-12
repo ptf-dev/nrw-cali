@@ -1,0 +1,57 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//nrw-cali//NRW Holiday Calendars//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Bridge Days North Rhine-Westphalia 2026
+X-WR-CALNAME:Bridge Days North Rhine-Westphalia 2026
+DESCRIPTION:Single working days between a North Rhine-Westphalia holiday an
+ d the weekend.
+X-WR-CALDESC:Single working days between a North Rhine-Westphalia holiday a
+ nd the weekend.
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:P7D
+X-PUBLISHED-TTL:P7D
+BEGIN:VEVENT
+UID:2026-01-02-bridge-new-year@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20260102
+DTEND;VALUE=DATE:20260103
+SUMMARY:Bridge day (after New Year)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-05-15-bridge-ascension-day@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20260515
+DTEND;VALUE=DATE:20260516
+SUMMARY:Bridge day (after Ascension Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-05-bridge-corpus-christi@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20260605
+DTEND;VALUE=DATE:20260606
+SUMMARY:Bridge day (after Corpus Christi)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+END:VCALENDAR

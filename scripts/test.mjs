@@ -4,7 +4,18 @@
  */
 import assert from 'node:assert/strict';
 
-import { FEEDS, buildIcs, feedEvents, holidaysForYear, isoWeek, bridgeDays } from '../docs/holidays.js';
+import {
+  END_YEAR,
+  FEEDS,
+  START_YEAR,
+  bridgeDays,
+  buildIcs,
+  feedEvents,
+  feedFile,
+  feedName,
+  holidaysForYear,
+  isoWeek,
+} from '../docs/holidays.js';
 
 /** date, weekday, calendar week and name exactly as published by the source. */
 const EXPECTED = `
@@ -108,16 +119,46 @@ console.log(`ok  all ${SOURCE_BD_MARKERS.length} bridge days flagged BD by the s
 
 for (const feed of FEEDS) {
   const events = feedEvents(feed);
-  const ics = buildIcs(events, { name: feed.calName, description: feed.calDesc });
+  const file = feedFile(feed);
+  const ics = buildIcs(events, { name: feedName(feed), description: feed.calDesc });
 
-  assert.ok(ics.startsWith('BEGIN:VCALENDAR\r\n'), `${feed.file}: starts with VCALENDAR`);
-  assert.ok(ics.endsWith('END:VCALENDAR\r\n'), `${feed.file}: ends with VCALENDAR`);
-  assert.equal(ics.match(/BEGIN:VEVENT/g).length, events.length, `${feed.file}: event count`);
-  assert.equal(new Set(ics.match(/^UID:.*$/gm)).size, events.length, `${feed.file}: unique UIDs`);
-  assert.ok(!/[^\r]\n/.test(ics), `${feed.file}: every line ends with CRLF`);
+  assert.ok(ics.startsWith('BEGIN:VCALENDAR\r\n'), `${file}: starts with VCALENDAR`);
+  assert.ok(ics.endsWith('END:VCALENDAR\r\n'), `${file}: ends with VCALENDAR`);
+  assert.equal(ics.match(/BEGIN:VEVENT/g).length, events.length, `${file}: event count`);
+  assert.equal(new Set(ics.match(/^UID:.*$/gm)).size, events.length, `${file}: unique UIDs`);
+  assert.ok(!/[^\r]\n/.test(ics), `${file}: every line ends with CRLF`);
 
   for (const line of ics.split('\r\n')) {
-    assert.ok(new TextEncoder().encode(line).length <= 75, `${feed.file}: line over 75 octets: ${line}`);
+    assert.ok(new TextEncoder().encode(line).length <= 75, `${file}: line over 75 octets: ${line}`);
   }
-  console.log(`ok  ${feed.file} is well-formed (${events.length} events)`);
+  console.log(`ok  ${file} is well-formed (${events.length} events)`);
+}
+
+// The per-year files must partition the all-years file exactly: every event in
+// one and only one year, with the same UID, so subscribing to a single year and
+// later to the whole range cannot drop or duplicate a date.
+for (const feed of FEEDS) {
+  const all = feedEvents(feed);
+  const perYear = [];
+
+  for (let year = START_YEAR; year <= END_YEAR; year += 1) {
+    const events = feedEvents(feed, year, year);
+    const file = feedFile(feed, year);
+    assert.notEqual(file, feedFile(feed), `${file}: yearly path differs from the all-years path`);
+
+    for (const event of events) {
+      assert.equal(event.date.getUTCFullYear(), year, `${file}: ${event.iso} is outside ${year}`);
+    }
+
+    const ics = buildIcs(events, { name: feedName(feed, year), description: feed.calDesc });
+    assert.ok(ics.includes(`X-WR-CALNAME:${feedName(feed, year)}`), `${file}: calendar name carries the year`);
+    perYear.push(...events);
+  }
+
+  assert.deepEqual(
+    perYear.map((event) => event.iso),
+    all.map((event) => event.iso),
+    `${feedFile(feed)}: yearly files partition the all-years file`,
+  );
+  console.log(`ok  ${feedFile(feed)} splits into ${END_YEAR - START_YEAR + 1} yearly files with no gaps or overlaps`);
 }

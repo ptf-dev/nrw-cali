@@ -5,6 +5,7 @@ import {
   START_YEAR,
   bridgeDays,
   feedEvents,
+  feedFile,
   holidaysForYear,
   isoWeek,
 } from './holidays.js';
@@ -13,8 +14,10 @@ const pageUrl = new URL('.', window.location.href);
 const isHosted = pageUrl.protocol === 'http:' || pageUrl.protocol === 'https:';
 let lang = 'en';
 
-const feedsEl = document.querySelector('#feeds');
+const allFeedsEl = document.querySelector('#feeds-all');
+const yearFeedsEl = document.querySelector('#feeds-year');
 const yearEl = document.querySelector('#year');
+const captionEl = document.querySelector('#preview-caption');
 const tbodyEl = document.querySelector('#preview-table tbody');
 
 /** The https:// address of a feed, and the webcal:// form calendar apps expect. */
@@ -26,102 +29,85 @@ function webcalUrl(file) {
   return feedUrl(file).replace(/^https?:/, 'webcal:');
 }
 
-function button(tag, className, text, attrs = {}) {
+function element(tag, className, text, attrs = {}) {
   const el = document.createElement(tag);
-  el.className = className;
-  el.textContent = text;
+  if (className) el.className = className;
+  if (text !== undefined) el.textContent = text;
   for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, value);
   return el;
 }
 
-function renderFeeds() {
-  feedsEl.replaceChildren();
+/**
+ * One calendar card: what it holds, and the three ways to take it.
+ * `year` is undefined for the all-years feeds.
+ */
+function feedCard(feed, year) {
+  const file = feedFile(feed, year);
+  const count = feedEvents(feed, year ?? START_YEAR, year ?? END_YEAR).length;
+  const card = element('article', 'feed');
 
-  for (const feed of FEEDS.filter((candidate) => candidate.lang === lang)) {
-    const count = feedEvents(feed).length;
-    const card = document.createElement('article');
-    card.className = 'feed';
+  const heading = element('h3', null, year ? `${feed.title} ${year}` : feed.title);
 
-    const heading = document.createElement('h3');
-    heading.textContent = feed.title;
+  const blurb = element('p', null, feed.blurb);
+  const range = year ? `in ${year}` : `${START_YEAR}–${END_YEAR}`;
+  blurb.append(element('span', 'count', ` ${count} dates ${range}.`));
 
-    const blurb = document.createElement('p');
-    blurb.textContent = feed.blurb;
-    const count_ = document.createElement('span');
-    count_.className = 'count';
-    count_.textContent = ` ${count} dates, ${START_YEAR}–${END_YEAR}.`;
-    blurb.append(count_);
+  const actions = element('div', 'actions');
+  const subscribe = element('a', 'btn primary', 'Subscribe', { href: webcalUrl(file) });
+  const copy = element('button', 'btn', 'Copy link', { type: 'button' });
+  const download = element('a', 'btn', 'Download .ics', { href: file, download: file.split('/').pop() });
 
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-
-    const subscribe = button('a', 'btn primary', 'Subscribe', { href: webcalUrl(feed.file) });
-    const copy = button('button', 'btn', 'Copy link', { type: 'button' });
-    const download = button('a', 'btn', 'Download .ics', { href: feed.file, download: feed.file });
-
-    if (!isHosted) {
-      subscribe.setAttribute('aria-disabled', 'true');
-      copy.setAttribute('aria-disabled', 'true');
-    }
-
-    copy.addEventListener('click', async () => {
-      const url = feedUrl(feed.file);
-      try {
-        await navigator.clipboard.writeText(url);
-      } catch {
-        window.prompt('Copy this address into your calendar app:', url);
-        return;
-      }
-      copy.textContent = 'Copied';
-      setTimeout(() => { copy.textContent = 'Copy link'; }, 1600);
-    });
-
-    actions.append(subscribe, copy, download);
-
-    const url = document.createElement('code');
-    url.className = 'feed-url';
-    url.textContent = isHosted ? feedUrl(feed.file) : feed.file;
-
-    card.append(heading, blurb, actions, url);
-    feedsEl.append(card);
+  if (!isHosted) {
+    subscribe.setAttribute('aria-disabled', 'true');
+    copy.setAttribute('aria-disabled', 'true');
   }
+
+  copy.addEventListener('click', async () => {
+    const url = feedUrl(file);
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      window.prompt('Copy this address into your calendar app:', url);
+      return;
+    }
+    copy.textContent = 'Copied';
+    setTimeout(() => { copy.textContent = 'Copy link'; }, 1600);
+  });
+
+  actions.append(subscribe, copy, download);
+  card.append(heading, blurb, actions, element('code', 'feed-url', isHosted ? feedUrl(file) : file));
+  return card;
 }
 
-function renderPreview() {
+function render() {
   const year = Number(yearEl.value);
+  const feeds = FEEDS.filter((feed) => feed.lang === lang);
+
+  allFeedsEl.replaceChildren(...feeds.map((feed) => feedCard(feed)));
+  yearFeedsEl.replaceChildren(...feeds.map((feed) => feedCard(feed, year)));
+
   const { locale } = LANGUAGES[lang] ?? LANGUAGES.en;
   const dateFormat = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' });
   const dayFormat = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
 
-  const rows = [...holidaysForYear(year, lang), ...bridgeDays(year, year, lang)]
-    .sort((a, b) => a.date - b.date);
+  const holidays = holidaysForYear(year, lang);
+  const bridges = bridgeDays(year, year, lang);
+  captionEl.textContent =
+    `${holidays.length} holidays and ${bridges.length} bridge days in ${year}`;
 
-  tbodyEl.replaceChildren();
-  for (const entry of rows) {
-    const tr = document.createElement('tr');
-    if (entry.kind === 'bridge') tr.className = 'is-bridge';
-
-    const date = document.createElement('td');
-    date.textContent = dateFormat.format(entry.date);
-
-    const day = document.createElement('td');
-    day.textContent = dayFormat.format(entry.date);
-
-    const week = document.createElement('td');
-    week.textContent = `CW ${String(isoWeek(entry.date)).padStart(2, '0')}`;
-
-    const name = document.createElement('td');
-    name.textContent = entry.name;
-    if (entry.kind === 'bridge') {
-      const tag = document.createElement('span');
-      tag.className = 'tag';
-      tag.textContent = 'bridge';
-      name.append(tag);
-    }
-
-    tr.append(date, day, week, name);
-    tbodyEl.append(tr);
-  }
+  const rows = [...holidays, ...bridges].sort((a, b) => a.date - b.date);
+  tbodyEl.replaceChildren(...rows.map((entry) => {
+    const tr = element('tr', entry.kind === 'bridge' ? 'is-bridge' : null);
+    const name = element('td', null, entry.name);
+    if (entry.kind === 'bridge') name.append(element('span', 'tag', 'bridge'));
+    tr.append(
+      element('td', null, dateFormat.format(entry.date)),
+      element('td', null, dayFormat.format(entry.date)),
+      element('td', null, `CW ${String(isoWeek(entry.date)).padStart(2, '0')}`),
+      name,
+    );
+    return tr;
+  }));
 }
 
 function init() {
@@ -131,15 +117,13 @@ function init() {
   }
 
   const thisYear = new Date().getFullYear();
-  for (let year = Math.max(START_YEAR, thisYear - 1); year <= Math.min(END_YEAR, thisYear + 5); year += 1) {
-    const option = document.createElement('option');
-    option.value = String(year);
-    option.textContent = String(year);
-    if (year === thisYear) option.selected = true;
+  for (let year = START_YEAR; year <= END_YEAR; year += 1) {
+    const option = element('option', null, String(year), { value: String(year) });
+    if (year === Math.min(Math.max(thisYear, START_YEAR), END_YEAR)) option.selected = true;
     yearEl.append(option);
   }
 
-  yearEl.addEventListener('change', renderPreview);
+  yearEl.addEventListener('change', render);
 
   for (const btn of document.querySelectorAll('.segmented button')) {
     btn.addEventListener('click', () => {
@@ -147,13 +131,11 @@ function init() {
       for (const other of document.querySelectorAll('.segmented button')) {
         other.setAttribute('aria-checked', String(other === btn));
       }
-      renderFeeds();
-      renderPreview();
+      render();
     });
   }
 
-  renderFeeds();
-  renderPreview();
+  render();
 }
 
 init();

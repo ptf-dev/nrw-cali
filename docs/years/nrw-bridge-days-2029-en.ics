@@ -1,0 +1,99 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//nrw-cali//NRW Holiday Calendars//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Bridge Days North Rhine-Westphalia 2029
+X-WR-CALNAME:Bridge Days North Rhine-Westphalia 2029
+DESCRIPTION:Single working days between a North Rhine-Westphalia holiday an
+ d the weekend.
+X-WR-CALDESC:Single working days between a North Rhine-Westphalia holiday a
+ nd the weekend.
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:P7D
+X-PUBLISHED-TTL:P7D
+BEGIN:VEVENT
+UID:2029-04-30-bridge-labour-day@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20290430
+DTEND;VALUE=DATE:20290501
+SUMMARY:Bridge day (before Labour Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2029-05-11-bridge-ascension-day@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20290511
+DTEND;VALUE=DATE:20290512
+SUMMARY:Bridge day (after Ascension Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2029-06-01-bridge-corpus-christi@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20290601
+DTEND;VALUE=DATE:20290602
+SUMMARY:Bridge day (after Corpus Christi)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2029-11-02-bridge-all-saints-day@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20291102
+DTEND;VALUE=DATE:20291103
+SUMMARY:Bridge day (after All Saints' Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2029-12-24-bridge-christmas-day@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20291224
+DTEND;VALUE=DATE:20291225
+SUMMARY:Bridge day (before Christmas Day)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2029-12-31-bridge-new-year@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20291231
+DTEND;VALUE=DATE:20300101
+SUMMARY:Bridge day (before New Year)
+DESCRIPTION:Suggested day off: it bridges a public holiday in North Rhine-W
+ estphalia and the weekend.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+END:VCALENDAR

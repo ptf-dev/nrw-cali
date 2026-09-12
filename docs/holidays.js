@@ -235,10 +235,14 @@ export function buildIcs(events, { name, description, dtstamp = new Date() } = {
   return `${lines.map(foldLine).join('\r\n')}\r\n`;
 }
 
-/** The feeds the build script writes and the page offers for subscription. */
+/**
+ * The calendars the build script writes. Each is published twice: once with
+ * every year in one file, and once per year for people who would rather keep a
+ * single year and delete it afterwards.
+ */
 export const FEEDS = [
   {
-    file: 'nrw-holidays-en.ics',
+    slug: 'nrw-holidays',
     lang: 'en',
     kind: 'holiday',
     title: 'Public holidays',
@@ -247,7 +251,7 @@ export const FEEDS = [
     blurb: 'All 11 statutory holidays, from New Year to Boxing Day.',
   },
   {
-    file: 'nrw-holidays-de.ics',
+    slug: 'nrw-holidays',
     lang: 'de',
     kind: 'holiday',
     title: 'Feiertage',
@@ -256,7 +260,7 @@ export const FEEDS = [
     blurb: 'Alle 11 gesetzlichen Feiertage, von Neujahr bis 2. Weihnachtstag.',
   },
   {
-    file: 'nrw-bridge-days-en.ics',
+    slug: 'nrw-bridge-days',
     lang: 'en',
     kind: 'bridge',
     title: 'Bridge days',
@@ -265,7 +269,7 @@ export const FEEDS = [
     blurb: 'Take one day off, get a four-day weekend. Optional extra.',
   },
   {
-    file: 'nrw-bridge-days-de.ics',
+    slug: 'nrw-bridge-days',
     lang: 'de',
     kind: 'bridge',
     title: 'Brückentage',
@@ -274,6 +278,18 @@ export const FEEDS = [
     blurb: 'Ein Urlaubstag, vier Tage frei. Optionale Ergänzung.',
   },
 ];
+
+/** Path of a feed inside the published site. Omit `year` for the all-years file. */
+export function feedFile(feed, year) {
+  return year
+    ? `years/${feed.slug}-${year}-${feed.lang}.ics`
+    : `${feed.slug}-${feed.lang}.ics`;
+}
+
+/** Calendar name as it will appear in the subscriber's calendar app. */
+export function feedName(feed, year) {
+  return year ? `${feed.calName} ${year}` : feed.calName;
+}
 
 /** Events of one feed, ready for `buildIcs`. */
 export function feedEvents(feed, startYear = START_YEAR, endYear = END_YEAR) {

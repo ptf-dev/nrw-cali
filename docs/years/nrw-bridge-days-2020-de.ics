@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//nrw-cali//NRW Holiday Calendars//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Brückentage Nordrhein-Westfalen 2020
+X-WR-CALNAME:Brückentage Nordrhein-Westfalen 2020
+DESCRIPTION:Einzelne Arbeitstage zwischen einem NRW-Feiertag und dem Wochen
+ ende.
+X-WR-CALDESC:Einzelne Arbeitstage zwischen einem NRW-Feiertag und dem Woche
+ nende.
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:P7D
+X-PUBLISHED-TTL:P7D
+BEGIN:VEVENT
+UID:2020-05-22-bridge-ascension-day@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20200522
+DTEND;VALUE=DATE:20200523
+SUMMARY:Brückentag (nach Christi Himmelfahrt)
+DESCRIPTION:Brückentag: ein Urlaubstag verbindet hier einen Feiertag in No
+ rdrhein-Westfalen mit dem Wochenende.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+BEGIN:VEVENT
+UID:2020-06-12-bridge-corpus-christi@nrw-cali
+DTSTAMP:20260912T061250Z
+DTSTART;VALUE=DATE:20200612
+DTEND;VALUE=DATE:20200613
+SUMMARY:Brückentag (nach Fronleichnam)
+DESCRIPTION:Brückentag: ein Urlaubstag verbindet hier einen Feiertag in No
+ rdrhein-Westfalen mit dem Wochenende.
+CATEGORIES:Bridge Day
+CLASS:PUBLIC
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+END:VEVENT
+END:VCALENDAR

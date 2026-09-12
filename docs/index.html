@@ -35,7 +35,37 @@
     </div>
   </section>
 
-  <section class="feeds" id="feeds" aria-label="Available calendars"></section>
+  <section class="feeds-section">
+    <div class="section-head">
+      <div>
+        <h2>Every year in one calendar</h2>
+        <p class="section-note">Subscribe once and never think about it again.</p>
+      </div>
+    </div>
+    <div class="feeds" id="feeds-all" aria-label="All-years calendars"></div>
+  </section>
+
+  <section class="feeds-section">
+    <div class="section-head">
+      <div>
+        <h2>One year at a time</h2>
+        <p class="section-note">A separate calendar per year, easy to delete once it is over.</p>
+      </div>
+      <label class="year-picker">
+        <span>Year</span>
+        <select id="year"></select>
+      </label>
+    </div>
+    <div class="feeds" id="feeds-year" aria-label="Single-year calendars"></div>
+
+    <table id="preview-table">
+      <caption id="preview-caption"></caption>
+      <thead>
+        <tr><th scope="col">Date</th><th scope="col">Day</th><th scope="col">Week</th><th scope="col">Holiday</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 
   <section class="howto">
     <h2>How to subscribe on iPhone</h2>
@@ -53,22 +83,6 @@
       Other calendars &rsaquo; From URL. Subscribed calendars stay up to date on their own &mdash;
       the feed asks to be refreshed weekly.
     </p>
-  </section>
-
-  <section class="preview">
-    <div class="preview-head">
-      <h2>What you get</h2>
-      <label class="year-picker">
-        <span>Year</span>
-        <select id="year"></select>
-      </label>
-    </div>
-    <table id="preview-table">
-      <thead>
-        <tr><th scope="col">Date</th><th scope="col">Day</th><th scope="col">Week</th><th scope="col">Holiday</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
   </section>
 
   <footer>
