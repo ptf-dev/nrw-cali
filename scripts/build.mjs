@@ -7,6 +7,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
+  DATA_REVISION,
   END_YEAR,
   FEEDS,
   START_YEAR,
@@ -19,14 +20,13 @@ import {
 // The site is published from the repository root so that GitHub Pages serves
 // it identically whether it builds the branch itself or runs the CI workflow.
 const outDir = join(dirname(fileURLToPath(import.meta.url)), '..');
-const dtstamp = new Date();
 
 async function write(feed, year) {
   const events = feedEvents(feed, year ?? START_YEAR, year ?? END_YEAR);
   const ics = buildIcs(events, {
     name: feedName(feed, year),
     description: feed.calDesc,
-    dtstamp,
+    dtstamp: DATA_REVISION,
   });
   await writeFile(join(outDir, feedFile(feed, year)), ics, 'utf8');
   return events.length;

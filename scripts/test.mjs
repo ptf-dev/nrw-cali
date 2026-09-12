@@ -5,6 +5,7 @@
 import assert from 'node:assert/strict';
 
 import {
+  DATA_REVISION,
   END_YEAR,
   FEEDS,
   START_YEAR,
@@ -162,3 +163,16 @@ for (const feed of FEEDS) {
   );
   console.log(`ok  ${feedFile(feed)} splits into ${END_YEAR - START_YEAR + 1} yearly files with no gaps or overlaps`);
 }
+
+// The committed .ics files are checked in CI against a fresh build, so the
+// generator must be deterministic: same input, byte-identical output.
+for (const feed of FEEDS) {
+  const events = feedEvents(feed);
+  const options = { name: feedName(feed), description: feed.calDesc };
+  assert.equal(buildIcs(events, options), buildIcs(events, options), `${feedFile(feed)}: build is reproducible`);
+  assert.ok(
+    buildIcs(events, options).includes(`DTSTAMP:${DATA_REVISION.toISOString().slice(0, 19).replace(/[-:]/g, '')}Z`),
+    `${feedFile(feed)}: DTSTAMP comes from the data revision, not the clock`,
+  );
+}
+console.log('ok  rebuilding produces byte-identical files');

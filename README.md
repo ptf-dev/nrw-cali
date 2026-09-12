@@ -84,6 +84,12 @@ the build script. Rather than keeping a hand-copied table of dates, it derives t
   Gregorian algorithm): Good Friday `-2`, Easter Monday `+1`, Ascension `+39`,
   Whit Monday `+50`, Corpus Christi `+60`.
 
+The build is deterministic: `DTSTAMP` comes from a `DATA_REVISION` constant in
+`holidays.js` rather than the clock, so rebuilding produces byte-identical files. The
+committed feeds therefore never churn, a subscriber's calendar app does not see every
+event as modified on every deploy, and CI can check the committed `.ics` files against a
+fresh build. Bump `DATA_REVISION` when the holiday rules change.
+
 `npm test` checks all 44 dates, weekdays and calendar weeks for 2025&ndash;2028 against the
 list published on
 [holidays-info.com](https://www.holidays-info.com/germany/holidays/north-rhine-westphalia/),

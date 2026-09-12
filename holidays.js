@@ -12,6 +12,16 @@ export const END_YEAR = 2060;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 /**
+ * When the holiday data was last revised, used as the DTSTAMP of every event.
+ *
+ * Deliberately a constant rather than the build time: rebuilding must produce
+ * byte-identical files, so the committed feeds do not churn and a subscriber's
+ * calendar app does not see every event as modified on every deploy. Bump it
+ * when the rules in HOLIDAYS change.
+ */
+export const DATA_REVISION = new Date('2026-09-12T00:00:00Z');
+
+/**
  * The eleven statutory holidays of North Rhine-Westphalia. Movable feasts are
  * expressed as a day offset from Easter Sunday.
  */
@@ -194,7 +204,7 @@ function stamp(date) {
  * Render events as an iCalendar feed. Holidays are all-day events, marked free
  * so they never make the subscriber look busy.
  */
-export function buildIcs(events, { name, description, dtstamp = new Date() } = {}) {
+export function buildIcs(events, { name, description, dtstamp = DATA_REVISION } = {}) {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
